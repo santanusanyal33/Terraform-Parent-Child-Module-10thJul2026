@@ -17,11 +17,9 @@ jobs:
 
     steps:
 
-      # 1. Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2. Login to Azure
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -30,22 +28,21 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
-      # 3. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      # 4. Terraform Init
       - name: Terraform Init
+        working-directory: ./parent
         run: terraform init
 
-      # 5. Terraform Validate
       - name: Terraform Validate
+        working-directory: ./parent
         run: terraform validate
 
-      # 6. Terraform Plan
       - name: Terraform Plan
+        working-directory: ./parent
         run: terraform plan
 
-      # 7. Terraform Apply
       - name: Terraform Apply
+        working-directory: ./parent
         run: terraform apply -auto-approve
