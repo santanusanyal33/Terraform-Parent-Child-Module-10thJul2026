@@ -74,7 +74,6 @@ vm = {
   location            = "japaneast"
   size                = "Standard_D2s_v3"
   admin_username      = "Santanuadmin"
-  admin_password      = "Password@123"
   }
   vm2 ={
   vm_name                = "SantaLinuxVM-Backend"
@@ -82,6 +81,5 @@ vm = {
   location            = "japaneast"
   size                = "Standard_D2s_v3"
   admin_username      = "Santanuadmin"
-  admin_password      = "Password@123"
   }
 }
