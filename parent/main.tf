@@ -31,6 +31,18 @@ module "azurerm_NIC" {
 }
 module "azurerm_virtual_machine" {
   source = "../child/azurerm_virtual_machine"
-  vm = var.vm
-  depends_on = [module.azurerm_NIC,module.azurerm_resource_group]
+
+  vm = {
+    for key, value in var.vm : key => merge(
+      value,
+      {
+        admin_password = var.vm_admin_password
+      }
+    )
+  }
+
+  depends_on = [
+    module.azurerm_NIC,
+    module.azurerm_resource_group
+  ]
 }
