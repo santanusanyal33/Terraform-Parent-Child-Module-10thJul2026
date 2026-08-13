@@ -1,10 +1,9 @@
-name: Terraform Plan
+name: Terraform Plan - Client Secret
 
 on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
@@ -21,13 +20,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Azure Login
+      # 2. Azure Login using Client Secret
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          creds: |
+            {
+              "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+              "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+              "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+            }
 
       # 3. Verify Azure account
       - name: Verify Azure Account
