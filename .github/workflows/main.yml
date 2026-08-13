@@ -50,6 +50,6 @@ jobs:
         run: terraform validate
 
       # 7. Terraform Plan
-     - name: Terraform Plan
+   - name: Terraform Plan
   working-directory: ./parent
   run: terraform plan -refresh=false -input=false -no-color
