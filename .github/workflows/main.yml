@@ -12,9 +12,11 @@ jobs:
 
     steps:
 
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2. Azure Login using Client Secret
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -26,26 +28,30 @@ jobs:
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
 
+      # 3. Verify Azure Account
       - name: Verify Azure Account
         run: |
           az account show --query "{Subscription:id, Tenant:tenantId, Name:name}" -o table
 
+      # 4. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.7
 
+      # 5. Terraform Init
       - name: Terraform Init
         working-directory: ./parent
         run: terraform init -reconfigure
 
+      # 6. Terraform Validate
       - name: Terraform Validate
         working-directory: ./parent
         run: terraform validate
 
+      # 7. Terraform Plan
       - name: Terraform Plan
-- name: Terraform Plan
-  working-directory: ./parent
-  env:
-    TF_VAR_vm_admin_password: ${{ secrets.AZURE_VM_ADMIN_PASSWORD }}
-  run: terraform plan -refresh=false -input=false -no-color
+        working-directory: ./parent
+        env:
+          TF_VAR_vm_admin_password: ${{ secrets.AZURE_VM_ADMIN_PASSWORD }}
+        run: terraform plan -refresh=false -input=false -no-color
