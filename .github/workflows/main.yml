@@ -10,17 +10,22 @@ jobs:
   terraform-plan:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: Terraform/Terraform Module_10.07.2026/Terraform-Parent-Child-Module-10thJul2026/parent
-
     steps:
 
-      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Azure Login using Client Secret
+      - name: Check repository path
+        run: |
+          echo "Current directory:"
+          pwd
+          echo ""
+          echo "Repository root:"
+          ls -la
+          echo ""
+          echo "Terraform directories:"
+          find . -maxdepth 6 -type d | sort
+
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -32,25 +37,23 @@ jobs:
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
 
-      # 3. Verify Azure account
       - name: Verify Azure Account
         run: |
           az account show --query "{Subscription:id, Tenant:tenantId, Name:name}" -o table
 
-      # 4. Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.7
 
-      # 5. Terraform Init
       - name: Terraform Init
+        working-directory: ./Terraform/Terraform Module_10.07.2026/Terraform-Parent-Child-Module-10thJul2026/parent
         run: terraform init -reconfigure
 
-      # 6. Terraform Validate
       - name: Terraform Validate
+        working-directory: ./Terraform/Terraform Module_10.07.2026/Terraform-Parent-Child-Module-10thJul2026/parent
         run: terraform validate
 
-      # 7. Terraform Plan
       - name: Terraform Plan
+        working-directory: ./Terraform/Terraform Module_10.07.2026/Terraform-Parent-Child-Module-10thJul2026/parent
         run: terraform plan
