@@ -74,14 +74,13 @@ vm = {
     location            = "japaneast"
     size                = "Standard_D2s_v3"
     admin_username      = "Santanuadmin"
-
   }
+
   vm2 = {
     vm_name             = "SantaLinuxVM-Backend"
     resource_group_name = "santa-resourcegroupdev"
     location            = "japaneast"
     size                = "Standard_D2s_v3"
     admin_username      = "Santanuadmin"
-
   }
 }

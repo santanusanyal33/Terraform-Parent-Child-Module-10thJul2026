@@ -60,9 +60,9 @@ variable "vm" {
     location            = string
     size                = string
     admin_username      = string
-    
   }))
 }
+
 variable "vm_admin_password" {
   type      = string
   sensitive = true
