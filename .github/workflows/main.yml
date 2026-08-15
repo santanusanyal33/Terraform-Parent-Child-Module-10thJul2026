@@ -46,7 +46,7 @@ jobs:
           tflint
 
       # ---------------- tfsec ----------------
-      - name: Run tfsec
+      -      - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
-          working_dir: ./parent
+          working_directory: ./parent
