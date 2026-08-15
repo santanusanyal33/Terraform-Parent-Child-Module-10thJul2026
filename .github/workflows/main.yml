@@ -28,12 +28,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # ---------------- TFLint ----------------
+      # ---------------- Terraform ----------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.14.7
 
+      # ---------------- TFLint ----------------
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
         with:
@@ -46,7 +47,7 @@ jobs:
           tflint
 
       # ---------------- tfsec ----------------
-      -      - name: Run tfsec
+      - name: Run tfsec
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
           working_directory: ./parent
