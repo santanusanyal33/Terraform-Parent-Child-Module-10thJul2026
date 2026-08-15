@@ -59,6 +59,10 @@ jobs:
   terraform-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
     needs: security-scan
 
     steps:
@@ -66,6 +70,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
+=======
+      # ---------------- Terraform ----------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.7
+
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
       # ---------------- Azure Login ----------------
       - name: Azure Login
         uses: azure/login@v2
@@ -78,6 +91,7 @@ jobs:
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
 
+<<<<<<< HEAD
       # ---------------- Terraform ----------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -87,16 +101,43 @@ jobs:
       # ---------------- Terraform Init ----------------
       - name: Terraform Init
         working-directory: ./parent
+=======
+      # ---------------- Terraform Init ----------------
+      - name: Terraform Init
+        working-directory: ./parent
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
         run: terraform init
 
       # ---------------- Terraform Validate ----------------
       - name: Terraform Validate
         working-directory: ./parent
+<<<<<<< HEAD
+=======
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
         run: terraform validate
 
       # ---------------- Terraform Plan ----------------
       - name: Terraform Plan
         working-directory: ./parent
+<<<<<<< HEAD
+=======
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          TF_VAR_vm_admin_password: ${{ secrets.AZURE_VM_ADMIN_PASSWORD }}
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
         run: terraform plan -out=tfplan
 
       # ---------------- Upload Plan ----------------
@@ -108,13 +149,24 @@ jobs:
 
 
   # ============================================================
+<<<<<<< HEAD
   # 3. MANUAL APPROVAL + APPLY
+=======
+  # 3. MANUAL APPROVAL + TERRAFORM APPLY
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
   # ============================================================
   terraform-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     needs: terraform-plan
 
+=======
+
+    needs: terraform-plan
+
+    # Manual approval happens HERE, after Plan succeeds
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
     environment:
       name: production
 
@@ -123,6 +175,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
+=======
+      # ---------------- Terraform ----------------
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.7
+
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
       # ---------------- Azure Login ----------------
       - name: Azure Login
         uses: azure/login@v2
@@ -135,6 +196,7 @@ jobs:
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
 
+<<<<<<< HEAD
       # ---------------- Terraform ----------------
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -144,6 +206,16 @@ jobs:
       # ---------------- Terraform Init ----------------
       - name: Terraform Init
         working-directory: ./parent
+=======
+      # ---------------- Terraform Init ----------------
+      - name: Terraform Init
+        working-directory: ./parent
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
         run: terraform init
 
       # ---------------- Download Plan ----------------
@@ -156,4 +228,14 @@ jobs:
       # ---------------- Terraform Apply ----------------
       - name: Terraform Apply
         working-directory: ./parent
+<<<<<<< HEAD
         run: terraform apply -auto-approve tfplan
+=======
+        env:
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          TF_VAR_vm_admin_password: ${{ secrets.AZURE_VM_ADMIN_PASSWORD }}
+        run: terraform apply -auto-approve tfplan
+>>>>>>> 0f12c11 (Add Terraform plan approval and apply pipeline)
