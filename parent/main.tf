@@ -33,23 +33,33 @@ module "azurerm_public_ip" {
   depends_on = [module.azurerm_resource_group]
 }
 
+
 module "azurerm_NIC" {
   source = "../child/azurerm_NIC"
-  nic    = var.nic
+
+  nic = var.nic
+
+  pip_ids = {
+    for k, v in module.azurerm_public_ip.pip_ids :
+    v.name => v.id
+  }
 
   depends_on = [
     module.azurerm_subnet,
+    module.azurerm_public_ip,
     module.azurerm_resource_group
   ]
 }
 
-module "azurerm_virtual_machine" {
-  source            = "../child/azurerm_virtual_machine"
-  vm                = var.vm
-  vm_admin_password = var.vm_admin_password
 
-  depends_on = [
-    module.azurerm_NIC,
-    module.azurerm_resource_group
-  ]
-}
+
+# module "azurerm_virtual_machine" {
+# source            = "../child/azurerm_virtual_machine"
+# vm                = var.vm
+# vm_admin_password = var.vm_admin_password
+
+# depends_on = [
+# module.azurerm_NIC,
+#  module.azurerm_resource_group
+# ]
+# }

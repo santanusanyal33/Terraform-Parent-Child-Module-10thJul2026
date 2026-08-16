@@ -44,3 +44,8 @@ terraform.rc
 # planout
 # Local Terraform state JSON
 **/state.json
+
+# Terraform state backup
+**/state-backup-before-reimport.json
+
+tfplan

@@ -6,7 +6,7 @@ RG = {
 }
 SA = {
   SA1 = {
-    name                     = "santanustoragedev11"
+    name                     = "santanuappdev81626"
     resource_group_name      = "santa-resourcegroupdev"
     location                 = "japaneast"
     account_tier             = "Standard"

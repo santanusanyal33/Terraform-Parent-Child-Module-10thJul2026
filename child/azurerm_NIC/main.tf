@@ -9,6 +9,7 @@ resource "azurerm_network_interface" "practiceNIC" {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.subnet[each.key].id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = data.azurerm_public_ip.publicip[each.key].id
+    public_ip_address_id          = var.pip_ids[each.value.pip_name]
   }
 }
+
