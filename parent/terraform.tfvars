@@ -72,7 +72,7 @@ vm = {
     vm_name             = "SantaLinuxVM-Frontend"
     resource_group_name = "santa-resourcegroupdev"
     location            = "japaneast"
-    size                = "Standard_B2s"
+    size                = "Standard_D2as_v5"
     admin_username      = "Santanuadmin"
   }
 
@@ -80,7 +80,7 @@ vm = {
     vm_name             = "SantaLinuxVM-Backend"
     resource_group_name = "santa-resourcegroupdev"
     location            = "japaneast"
-    size                = "Standard_B2s"
+    size                = "Standard_D2as_v5"
     admin_username      = "Santanuadmin"
   }
 }
