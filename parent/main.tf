@@ -53,13 +53,3 @@ module "azurerm_NIC" {
 
 
 
-# module "azurerm_virtual_machine" {
-# source            = "../child/azurerm_virtual_machine"
-# vm                = var.vm
-# vm_admin_password = var.vm_admin_password
-
-# depends_on = [
-# module.azurerm_NIC,
-#  module.azurerm_resource_group
-# ]
-# }
